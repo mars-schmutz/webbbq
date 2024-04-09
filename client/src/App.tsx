@@ -3,12 +3,12 @@ import './App.css'
 
 function Button({ display, msg, style, url }) {
     const handleClick = () => {
-        fetch(`${url}/bbbq`, {
+        fetch(`http://${url}/bbbq`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ message: msg })
+            body: JSON.stringify({ msg: msg })
         })
     }
 
