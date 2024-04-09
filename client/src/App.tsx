@@ -32,7 +32,7 @@ function App() {
     return (
         <>
             <input type="text" value={urlInput} onChange={handleUrlChange} />
-            <div class="response-btns">
+            <div className="response-btns">
                 <Button msg={"good"} style="good" display="Good" />
                 <Button msg={"slow"} style="slow" display="Slow" />
                 <Button msg={"stop"} style="stop" display="Stop" />

@@ -41,16 +41,18 @@
   color: #888;
 }
 
-.good {
-  background-color: #21ff55;
+.good, .slow, .stop {
   color: #383838;
 }
 
-input[type=text] {
-  margin: 0.25rem;
+.good {
+  background-color: #21ff55;
 }
 
-.response-btns {
-  padding: 1rem;
-  display: flex;
+.slow {
+  background-color: #eaf252;
+}
+
+.stop {
+  background-color: #fa4d59;
 }
