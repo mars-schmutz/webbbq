@@ -3,7 +3,7 @@ import './App.css'
 
 function Button({ display, msg, style, url }) {
     const handleClick = () => {
-        fetch(url, {
+        fetch(`${url}/bbbq`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,9 +33,9 @@ function App() {
         <>
             <input type="text" value={urlInput} onChange={handleUrlChange} />
             <div className="response-btns">
-                <Button msg={"good"} style="good" display="Good" />
-                <Button msg={"slow"} style="slow" display="Slow" />
-                <Button msg={"stop"} style="stop" display="Stop" />
+                <Button msg={"good"} style="good" display="Good" url={urlInput} />
+                <Button msg={"slow"} style="slow" display="Slow" url={urlInput} />
+                <Button msg={"stop"} style="stop" display="Stop" url={urlInput} />
             </div>
         </>
     )
