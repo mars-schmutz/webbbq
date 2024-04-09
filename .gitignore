@@ -254,6 +254,10 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+dist-ssr
+*.local
+
+.DS_Store
 
 # Gatsby files
 .cache/
