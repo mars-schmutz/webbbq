@@ -12,7 +12,14 @@ app.add_middleware(
     allow_headers = ["*"]
 )
 
+updates: list[dict[str, str]] = []
+
 @app.post("/bbbq", status_code = 201)
-async def student_status(message: dict) -> None:
-    state = message["msg"]
-    print(f"********>    {state}")
+async def update_status(message: dict) -> None:
+    updates.append(message)
+
+@app.get("/teacher")
+async def update_teacher() -> dict:
+    return {
+        "updates": updates
+    }
