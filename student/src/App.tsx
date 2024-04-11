@@ -20,15 +20,14 @@ function Button({ display, msg, name, style, url }) {
         })
     }
 
-    const divStyle = {
-        backgroundColor: c ? `rgb(${c.join(',')})` : 'transparent'
-    }
+    // const divStyle = {
+    //     backgroundColor: c ? `rgb(${c.join(',')})` : 'transparent'
+    // }
 
     return (
         <button
             className={`button ${style}`}
             onClick={handleClick}
-            style={divStyle}
         >
             {display}
         </button>
