@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import './App.css'
 
+import { daltonize } from "daltonize"
+
 function Button({ display, msg, name, style, url }) {
     const legend: { [key: string]: string } = {
         "good": "I'm good",
@@ -18,10 +20,15 @@ function Button({ display, msg, name, style, url }) {
         })
     }
 
+    const divStyle = {
+        backgroundColor: c ? `rgb(${c.join(',')})` : 'transparent'
+    }
+
     return (
         <button
             className={`button ${style}`}
             onClick={handleClick}
+            style={divStyle}
         >
             {display}
         </button>
@@ -39,6 +46,8 @@ function App() {
     const handleNameChange = (event) => {
         setNameInput(event.target.value);
     }
+
+    let d = daltonize([33, 255, 85], "protanope")
 
     return (
         <>
