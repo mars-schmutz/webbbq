@@ -23,7 +23,13 @@ function UpdateWindow() {
   }, [])
 
   const handleReset = () => {
-    console.log("send reset to back end")
+    fetch("http://localhost:8000/reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    setUpdates([])
   }
 
   return (

@@ -23,3 +23,7 @@ async def update_teacher() -> dict:
     return {
         "updates": updates
     }
+
+@app.post("/reset", status_code = 200)
+async def clear_updates() -> None:
+    updates.clear()
