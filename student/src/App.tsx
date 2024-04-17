@@ -11,7 +11,7 @@ function Button({ display, msg, name, style, url }) {
     }
 
     const handleClick = () => {
-        fetch(`http://${url}/bbbq`, {
+        fetch(`${url}/bbbq`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -19,10 +19,6 @@ function Button({ display, msg, name, style, url }) {
             body: JSON.stringify({ student: name, message: legend[msg] })
         })
     }
-
-    // const divStyle = {
-    //     backgroundColor: c ? `rgb(${c.join(',')})` : 'transparent'
-    // }
 
     return (
         <button
@@ -32,6 +28,10 @@ function Button({ display, msg, name, style, url }) {
             {display}
         </button>
     )
+}
+
+function Toggle() {
+    const [toggle, setToggle] = useState(false)
 }
 
 function App() {

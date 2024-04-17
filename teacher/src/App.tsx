@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react"
 import './App.css'
 
-function UpdateWindow() {
+function UpdateWindow({ url }) {
   const [updates, setUpdates] = useState([]);
 
   useEffect(() => {
     const fetchUpdates = async () => {
       try {
-        const resp = await fetch("http://localhost:8000/teacher")
+        //const resp = await fetch("http://localhost:8000/teacher")
+        const _resp = await fetch(`${url}/teacher`)
+        const resp = await fetch("https://webbbq.onrender.com/teacher")
         const data = await resp.json()
         setUpdates(data.updates)
       } catch (err) {
@@ -23,7 +25,7 @@ function UpdateWindow() {
   }, [])
 
   const handleReset = () => {
-    fetch("http://localhost:8000/reset", {
+    fetch("https://webbbq.onrender.com/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -46,10 +48,15 @@ function UpdateWindow() {
 }
 
 function App() {
+  const [urlInput, setUrlInput] = useState("");
+
+  const handleUrlChange = (event) => {
+    setUrlInput(event.target.value);
+  }
 
   return (
     <>
-      <UpdateWindow />
+      <UpdateWindow url={urlInput} />
     </>
   )
 }
