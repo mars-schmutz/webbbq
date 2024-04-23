@@ -21,7 +21,7 @@ async def update_status(message: dict) -> None:
 @app.get("/teacher")
 async def update_teacher() -> dict:
     return {
-        "updates": updates[::-1]
+        "updates": updates
     }
 
 @app.post("/reset", status_code = 200)

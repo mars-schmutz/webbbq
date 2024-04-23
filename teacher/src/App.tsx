@@ -11,7 +11,7 @@ function UpdateWindow({ url }) {
         const _resp = await fetch(`${url}/teacher`)
         const resp = await fetch("https://webbbq.onrender.com/teacher")
         const data = await resp.json()
-        setUpdates(data.updates)
+        setUpdates(data.updates.reverse())
       } catch (err) {
         console.error(`Error fetching updates: ${err}`)
       }
