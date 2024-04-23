@@ -19,7 +19,7 @@ function UpdateWindow({ url }) {
 
     fetchUpdates();
 
-    const timer = setInterval(fetchUpdates, 5000)
+    const timer = setInterval(fetchUpdates, 1000)
 
     return () => clearInterval(timer)
   }, [])
@@ -37,12 +37,12 @@ function UpdateWindow({ url }) {
   return (
     <div className="updates">
       <h2>Updates</h2>
+      <button onClick={handleReset}>Reset</button>
       <ul>
         {updates.map((update, idx) => (
           <li key={idx}>{update.student}: {update.message}</li>
         ))}
       </ul>
-      <button onClick={handleReset}>Reset</button>
     </div>
   )
 }
