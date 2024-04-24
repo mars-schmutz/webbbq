@@ -1,14 +1,17 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import './App.css'
 
 import { daltonize } from "daltonize"
 
-function Button({ display, msg, name, style, url }) {
+function Button({ display, msg, style, url }) {
     const legend: { [key: string]: string } = {
         "good": "I'm good",
         "slow": "Please slow down",
         "stop": "Please explain that"
     }
+
+    const name = useSelector(state => state.name)
 
     const handleClick = () => {
         fetch(`${url}/bbbq`, {
@@ -30,20 +33,19 @@ function Button({ display, msg, name, style, url }) {
     )
 }
 
-function Toggle() {
-    const [toggle, setToggle] = useState(false)
-}
-
 function App() {
-    const [urlInput, setUrlInput] = useState("");
+    const [urlInput, setUrlInput] = useState("https://webbbq.onrender.com");
     const [nameInput, setNameInput] = useState("");
 
     const handleUrlChange = (event) => {
         setUrlInput(event.target.value);
     }
 
+    const dispatch = useDispatch()
     const handleNameChange = (event) => {
-        setNameInput(event.target.value);
+        const newName = event.target.value
+        setNameInput(newName);
+        dispatch({ type: "SET", payload: newName });
     }
 
     let d = daltonize([33, 255, 85], "protanope")
@@ -61,9 +63,9 @@ function App() {
                 </div>
             </div>
             <div className="response-btns">
-                <Button msg={"good"} style="good" display="Good" url={urlInput} name={nameInput} />
-                <Button msg={"slow"} style="slow" display="Slow" url={urlInput} name={nameInput} />
-                <Button msg={"stop"} style="stop" display="Stop" url={urlInput} name={nameInput} />
+                <Button msg={"good"} style="good" display="Good" />
+                <Button msg={"slow"} style="slow" display="Slow" />
+                <Button msg={"stop"} style="stop" display="Stop" />
             </div>
         </>
     )
