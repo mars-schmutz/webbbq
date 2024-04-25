@@ -24,12 +24,24 @@
   background-color: rgb(33, 255, 85);
 }
 
+.good:active {
+  background-color: #009924;
+}
+
 .slow {
   background-color: #eaf252;
 }
 
+.slow:active {
+  background-color: #888e0b;
+}
+
 .stop {
   background-color: #fa4d59;
+}
+
+.stop:active {
+  background-color: #95040e;
 }
 
 .inputs {
