@@ -4,6 +4,16 @@ import './App.css'
 
 import { daltonize } from "daltonize"
 
+function ErrorDisp({ error }) {
+    if (!error) return null;
+
+    return (
+        <div className="error">
+            Error: { error }
+        </div>
+    )
+}
+
 function Button({ display, msg, style, url }) {
     const legend: { [key: string]: string } = {
         "good": "I'm good",
@@ -25,11 +35,41 @@ function Button({ display, msg, style, url }) {
 
     return (
         <button
-            className={`button ${style}`}
+            className={style}
             onClick={handleClick}
         >
             {display}
         </button>
+    )
+}
+
+function Questions({ url }) {
+    const [questionInput, setQuestionInput] = useState("");
+
+    const handleQuestionChange = (event) => {
+        setQuestionInput(event.target.value);
+    }
+
+    const name = useSelector(state => state.name);
+
+    const handleClick = () => {
+        if (questionInput === "") return;
+
+        fetch(`${url}/questions`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ student: name, question: questionInput })
+        });
+        setQuestionInput("");
+    }
+
+    return (
+        <div className="questions">
+            <textarea rows="4" cols="50" name="question" value={questionInput} onChange={handleQuestionChange} />
+            <button onClick={handleClick}>Submit</button>
+        </div>
     )
 }
 
@@ -67,6 +107,7 @@ function App() {
                 <Button msg={"slow"} style="slow" display="Slow" url={urlInput} />
                 <Button msg={"stop"} style="stop" display="Stop" url={urlInput} />
             </div>
+            <Questions url={urlInput} />
         </>
     )
 }

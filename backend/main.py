@@ -16,6 +16,7 @@ app.add_middleware(
 PASSWD = "c963ca56d7ee4d9ef16e856f2d47cb148acc9618d6c401eccb391bdea0dd8dd2"
 
 updates: list[dict[str, str]] = []
+questions: list[dict[str, str]] = []
 
 def passwd_check(pwd):
     bytestr = pwd.encode("utf-8")
@@ -26,13 +27,18 @@ def passwd_check(pwd):
 async def update_status(message: dict) -> None:
     updates.append(message)
 
+@app.post("/questions", status_code = 201)
+async def ask_question(question: dict) -> None:
+    questions.append(question)
+
 @app.get("/teacher")
 async def update_teacher(req: Request) -> dict:
     header = "X-TotallySecure"
     if header not in req.headers or passwd_check(req.headers[header]) != PASSWD:
         raise HTTPException(status_code = 401, detail = "Unauthorized")
     return {
-        "updates": updates
+        "updates": updates,
+        "questions": questions
     }
 
 @app.post("/reset", status_code = 200)
@@ -41,3 +47,4 @@ async def clear_updates(req: Request) -> None:
     if header not in req.headers or passwd_check(req.headers[header]) != PASSWD:
         raise HTTPException(status_code = 401, detail = "Unauthorized")
     updates.clear()
+    questions.clear()

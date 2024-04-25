@@ -1,22 +1,54 @@
 import React, { useState, useEffect } from "react"
 import './App.css'
 
-function UpdateWindow({ url, passwd }) {
+function UpdateWindow({ updates }) {
+
+  return (
+    <div className="updates">
+      <h2>Updates</h2>
+      <ul>
+        {updates.map((update, idx) => (
+          <li key={idx}>{update.student}: {update.message}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function QuestionWindow({ questions }) {
+
+  return (
+    <div className="questions">
+      <h2>Questions</h2>
+      <ul>
+        {questions.map((question, idx) => (
+          <li key={idx}>{question.student}: {question.question}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function App() {
+  const [urlInput, setUrlInput] = useState("");
+  const [passwdInput, setPasswdInput] = useState("");
   const [updates, setUpdates] = useState([]);
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     const fetchUpdates = async () => {
       try {
         //const _resp = await fetch(`${url}/teacher`)
         const headers = {
-          "X-TotallySecure": passwd
+          "X-TotallySecure": passwdInput
         }
-        const resp = await fetch("https://webbbq.onrender.com/teacher", {
+        const resp = await fetch("http://localhost:8000/teacher", {
           method: "GET",
           headers: headers
         })
         const data = await resp.json()
         setUpdates(data.updates.reverse())
+        setQuestions(data.questions.reverse())
       } catch (err) {
         console.error(`Error fetching updates: ${err}`)
       }
@@ -27,36 +59,18 @@ function UpdateWindow({ url, passwd }) {
     const timer = setInterval(fetchUpdates, 100)
 
     return () => clearInterval(timer)
-  }, [passwd])
+  }, [passwdInput])
 
   const handleReset = () => {
-    fetch("https://webbbq.onrender.com/reset", {
+    fetch("http://localhost:8000/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-TotallySecure": passwd
+        "X-TotallySecure": passwdInput
       }
     })
-    console.log(`passwd: ${passwd}`);
     setUpdates([])
   }
-
-  return (
-    <div className="updates">
-      <h2>Updates</h2>
-      <button onClick={handleReset}>Reset</button>
-      <ul>
-        {updates.map((update, idx) => (
-          <li key={idx}>{update.student}: {update.message}</li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-function App() {
-  const [urlInput, setUrlInput] = useState("");
-  const [passwdInput, setPasswdInput] = useState("");
 
   const handleUrlChange = (event) => {
     setUrlInput(event.target.value);
@@ -69,7 +83,9 @@ function App() {
   return (
     <>
       <input type="password" value={passwdInput} onChange={handlePasswdChange} />
-      <UpdateWindow url={urlInput} passwd={passwdInput} />
+      <button onClick={handleReset} >Reset</button>
+      <UpdateWindow updates={updates} />
+      <QuestionWindow questions={questions} />
     </>
   )
 }

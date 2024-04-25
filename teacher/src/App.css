@@ -41,10 +41,12 @@
   color: #888;
 }
 
+.quesitons,
 .updates {
   padding: 0.5rem 2rem;
 }
 
+.questions ul,
 .updates ul {
   padding: 0.5rem 2rem;
   background-color: #424242;
