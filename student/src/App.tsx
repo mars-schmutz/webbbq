@@ -63,9 +63,9 @@ function App() {
                 </div>
             </div>
             <div className="response-btns">
-                <Button msg={"good"} style="good" display="Good" />
-                <Button msg={"slow"} style="slow" display="Slow" />
-                <Button msg={"stop"} style="stop" display="Stop" />
+                <Button msg={"good"} style="good" display="Good" url={urlInput} />
+                <Button msg={"slow"} style="slow" display="Slow" url={urlInput} />
+                <Button msg={"stop"} style="stop" display="Stop" url={urlInput} />
             </div>
         </>
     )
